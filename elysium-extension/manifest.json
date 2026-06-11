@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+
+  "name": "ELYSIUM",
+
+  "version": "1.0",
+
+  "description": "GFG submission tracker",
+
+  "permissions": [
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "https://*.geeksforgeeks.org/*",
+    "http://localhost:3000/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.geeksforgeeks.org/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
