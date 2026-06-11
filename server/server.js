@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-
+const analyzeSubmission = require("./gemini");
 const app = express();
 
 app.use(cors());
@@ -24,6 +24,11 @@ app.post("/submission", async (req, res) => {
             code,
             platform
         } = req.body;
+
+        const analysis = await analyzeSubmission(req.body);
+        console.log("\n========== AI ANALYSIS ==========\n");
+        console.log(analysis);
+        console.log("\n====================================\n");
 
         console.log("\n========== NEW SUBMISSION ==========\n");
 
