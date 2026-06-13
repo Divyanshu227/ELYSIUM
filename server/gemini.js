@@ -1,7 +1,7 @@
 const {
     GoogleGenerativeAI
 } = require("@google/generative-ai");
-const dotenv= require("dotenv");
+const dotenv = require("dotenv");
 dotenv.config();
 const genAI =
     new GoogleGenerativeAI(
@@ -27,6 +27,9 @@ ${data.title}
 
 Platform:
 ${data.platform}
+
+Metadata:
+${data.metadata}
 
 Code:
 ${data.code}
@@ -68,11 +71,13 @@ Rules:
         const text =
             response.text();
 
-        // remove accidental markdown wrappers
-        const cleaned = text
-            .replace(/```json/g, "")
-            .replace(/```/g, "")
-            .trim();
+        // Extract JSON structure safely, ignoring any accidental markdown or conversational text
+        const firstBrace = text.indexOf('{');
+        const lastBrace = text.lastIndexOf('}');
+        if (firstBrace === -1 || lastBrace === -1 || firstBrace > lastBrace) {
+            throw new Error("Invalid JSON structure returned by Gemini");
+        }
+        const cleaned = text.substring(firstBrace, lastBrace + 1).trim();
 
         const parsed =
             JSON.parse(cleaned);

@@ -1,14 +1,16 @@
-
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 const analyzeSubmission = require("./gemini");
+const { uploadSubmission } = require("./utils/github");
 const app = express();
-
+const authRoutes = require("./routes/auth");
+const uploadRoutes = require("./routes/upload");
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
-
+app.use("/auth", authRoutes);
+app.use("/upload", uploadRoutes);
 // Health check
 app.get("/", (req, res) => {
     res.send("ELYSIUM Backend Running");
@@ -22,6 +24,7 @@ app.post("/submission", async (req, res) => {
         const {
             title,
             code,
+            metadata,
             platform
         } = req.body;
 
@@ -37,6 +40,17 @@ app.post("/submission", async (req, res) => {
 
         console.log("\nCode:\n");
         console.log(code);
+
+        console.log("\nMetadata:\n");
+        if (metadata && typeof metadata === 'object') {
+            Object.entries(metadata).forEach(([key,value])=>{
+                console.log(key+": "+value);
+            });
+        } else {
+            console.log("No metadata provided or invalid format");
+        }
+        // console.log(metadata);
+
 
         console.log("\n====================================\n");
 
@@ -64,13 +78,21 @@ app.post("/submission", async (req, res) => {
             code
         );
 
+        // Upload to GitHub if authenticated
+        try {
+            await uploadSubmission(title, code, analysis);
+        } catch (githubErr) {
+            console.error("GitHub Upload Error:", githubErr.message);
+        }
+
         res.json({
             success: true,
-            message: "Submission received"
+            message: "Submission received",
+            analysis: analysis
         });
 
     } catch (err) {
-
+         console.log("hi");
         console.error(err);
 
         res.status(500).json({
