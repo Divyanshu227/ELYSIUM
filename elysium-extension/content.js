@@ -66,6 +66,26 @@ document.addEventListener("click", (e) => {
             ?.innerText ||
             "Unknown Problem";
 
+
+        // metadata extraction 
+        const metadiv = document.getElementsByClassName("problems_header_description__t_8PB");
+        let metadata={};
+        if(metadiv){
+            const spans = metadiv.getElementsByTagName("span");
+            spans.forEach(span =>{
+                const text =span.innerText;
+                if(text.includes("Difficulty")){
+                    metadata.difficulty = span.getElementsByTagName("strong")?.innerText;
+                }
+                else if(text.includes("Accuracy")){
+                    metadata.accuracy = span.getElementsByTagName("strong")?.innerText;
+                }
+                else if(text.include("Average Time")){
+                    metadata.Average_Time = span.getElementsByTagName("strong")?.innerText;
+                }
+            })
+        }
+        console.log(metadata);
         const payload = {
             title,
             code,
