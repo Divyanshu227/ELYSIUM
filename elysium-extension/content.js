@@ -68,22 +68,22 @@ document.addEventListener("click", (e) => {
 
 
         // metadata extraction 
-        const metadiv = document.getElementsByClassName("problems_header_description__t_8PB");
+        const metadiv = document.getElementsByClassName("problems_header_description__t_8PB")[0];
         let metadata={};
         if(metadiv){
             const spans = metadiv.getElementsByTagName("span");
-            spans.forEach(span =>{
+            [...spans].forEach(span =>{
                 const text =span.innerText;
                 if(text.includes("Difficulty")){
-                    metadata.difficulty = span.getElementsByTagName("strong")?.innerText;
+                    metadata.difficulty = span.getElementsByTagName("strong")[0]?.innerText;
                 }
                 else if(text.includes("Accuracy")){
-                    metadata.accuracy = span.getElementsByTagName("strong")?.innerText;
+                    metadata.accuracy = span.getElementsByTagName("strong")[0]?.innerText;
                 }
-                else if(text.include("Average Time")){
-                    metadata.Average_Time = span.getElementsByTagName("strong")?.innerText;
+                else if(text.includes("Average Time")){
+                    metadata.Average_Time = span.getElementsByTagName("strong")[0]?.innerText;
                 }
-            })
+            });
         }
         console.log(metadata);
         const payload = {
