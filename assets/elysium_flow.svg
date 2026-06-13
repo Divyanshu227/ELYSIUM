@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#58a6ff" />
+      <stop offset="100%" stop-color="#1f6feb" />
+    </linearGradient>
+    <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#bc8cff" />
+      <stop offset="100%" stop-color="#8957e5" />
+    </linearGradient>
+    <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#56d364" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+    <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#58a6ff" />
+      <stop offset="50%" stop-color="#bc8cff" />
+      <stop offset="100%" stop-color="#8957e5" />
+    </linearGradient>
+    <linearGradient id="line-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="50%" stop-color="#bc8cff" />
+      <stop offset="100%" stop-color="#56d364" />
+    </linearGradient>
+
+    <!-- Filters for Glow Effect -->
+    <filter id="glow-heavy" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-light" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    /* Background style */
+    .bg {
+      fill: #0d1117;
+      rx: 16px;
+    }
+
+    /* Core fonts */
+    .node-text {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      fill: #f0f6fc;
+      text-anchor: middle;
+    }
+    .sub-text {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: #8b949e;
+      text-anchor: middle;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(0.95);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(0.95);
+        opacity: 1;
+      }
+    }
+    .pulsing-node {
+      transform-origin: center;
+      animation: pulse-ring 3s infinite ease-in-out;
+    }
+
+    /* Flow line animation */
+    @keyframes flow {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+    .animated-line {
+      stroke-dasharray: 8, 12;
+      animation: flow 1.5s linear infinite;
+    }
+
+    /* Floating star/sparkle animation */
+    @keyframes float-sparkle {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-5px) rotate(180deg); opacity: 1; filter: drop-shadow(0 0 6px #bc8cff); }
+      100% { transform: translateY(0px) rotate(360deg); opacity: 0.7; }
+    }
+    .sparkle {
+      transform-origin: 400px 85px;
+      animation: float-sparkle 4s infinite linear;
+    }
+
+    /* Glow pulsate */
+    @keyframes glow-pulse {
+      0% { filter: drop-shadow(0 0 2px rgba(188, 140, 255, 0.4)); }
+      50% { filter: drop-shadow(0 0 10px rgba(188, 140, 255, 0.8)); }
+      100% { filter: drop-shadow(0 0 2px rgba(188, 140, 255, 0.4)); }
+    }
+    .ai-glow {
+      animation: glow-pulse 3s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Background Card -->
+  <rect class="bg" width="100%" height="100%" />
+
+  <!-- Grid / Tech accents (Decorative) -->
+  <g opacity="0.07">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200" stroke="#ffffff" stroke-width="1" />
+    <path d="M 100,0 L 100,250 M 200,0 L 200,250 M 300,0 L 300,250 M 400,0 L 400,250 M 500,0 L 500,250 M 600,0 L 600,250 M 700,0 L 700,250" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Connection Lines (Extension -> AI) -->
+  <path d="M 175,100 Q 287.5,100 400,100" fill="none" stroke="url(#line-grad-1)" stroke-width="3" opacity="0.2" />
+  <path class="animated-line" d="M 175,100 Q 287.5,100 400,100" fill="none" stroke="url(#line-grad-1)" stroke-width="3" />
+
+  <!-- Connection Lines (AI -> GitHub) -->
+  <path d="M 400,100 Q 512.5,100 625,100" fill="none" stroke="url(#line-grad-2)" stroke-width="3" opacity="0.2" />
+  <path class="animated-line" d="M 400,100 Q 512.5,100 625,100" fill="none" stroke="url(#line-grad-2)" stroke-width="3" />
+
+  <!-- Node 1: Chrome Extension (Left) -->
+  <g transform="translate(120, 100)">
+    <!-- Glow Ring -->
+    <circle class="pulsing-node" cx="0" cy="0" r="42" fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.5" filter="url(#glow-light)" />
+    <!-- Outer Border -->
+    <circle cx="0" cy="0" r="34" fill="#161b22" stroke="#58a6ff" stroke-width="2.5" />
+    <!-- Gradient Fill Center -->
+    <circle cx="0" cy="0" r="28" fill="url(#grad-blue)" opacity="0.15" />
+    <!-- Chrome / Browser Extension Icon -->
+    <g transform="translate(-16, -16)">
+      <path d="M4 2a2 2 0 0 0-2 2v24a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4zm2 6h20v4H6V8zm0 8h20v2H6v-2zm0 6h14v2H6v-2z" fill="#58a6ff" />
+      <circle cx="23" cy="23" r="3" fill="#58a6ff" />
+    </g>
+  </g>
+  <text class="node-text" x="120" y="168">Chrome Extension</text>
+  <text class="sub-text" x="120" y="186">DOM Verdict Monitor</text>
+
+  <!-- Node 2: Gemini AI (Center) -->
+  <g class="ai-glow" transform="translate(400, 100)">
+    <!-- Glow Ring -->
+    <circle class="pulsing-node" cx="0" cy="0" r="50" fill="none" stroke="#bc8cff" stroke-width="2" opacity="0.6" filter="url(#glow-heavy)" />
+    <!-- Outer Border -->
+    <circle cx="0" cy="0" r="40" fill="#161b22" stroke="#bc8cff" stroke-width="2.5" />
+    <!-- Gradient Fill Center -->
+    <circle cx="0" cy="0" r="34" fill="url(#grad-purple)" opacity="0.15" />
+    <!-- Sparkling Gemini Logo Star -->
+    <path class="sparkle" d="M0,-20 Q0,0 20,0 Q0,0 0,20 Q0,0 -20,0 Q0,0 0,-20" fill="#bc8cff" transform="scale(0.85)" />
+    <!-- Inner design details -->
+    <circle cx="0" cy="0" r="5" fill="#f0f6fc" />
+  </g>
+  <text class="node-text" x="400" y="168">Gemini AI Engine</text>
+  <text class="sub-text" x="400" y="186">Complexity &amp; Explanation</text>
+
+  <!-- Node 3: GitHub Submissions (Right) -->
+  <g transform="translate(680, 100)">
+    <!-- Glow Ring -->
+    <circle class="pulsing-node" cx="0" cy="0" r="42" fill="none" stroke="#3fb950" stroke-width="2" opacity="0.5" filter="url(#glow-light)" />
+    <!-- Outer Border -->
+    <circle cx="0" cy="0" r="34" fill="#161b22" stroke="#3fb950" stroke-width="2.5" />
+    <!-- Gradient Fill Center -->
+    <circle cx="0" cy="0" r="28" fill="url(#grad-green)" opacity="0.15" />
+    <!-- GitHub Icon / Folder Icon -->
+    <g transform="translate(-16, -16)">
+      <path d="M16 0C7.16 0 0 7.16 0 16c0 7.08 4.59 13.07 10.96 15.19.8.15 1.09-.35 1.09-.78 0-.38-.01-1.4-.02-2.75-4.45.97-5.39-2.15-5.39-2.15-.73-1.85-1.78-2.34-1.78-2.34-1.45-.99.11-.97.11-.97 1.61.11 2.46 1.65 2.46 1.65 1.43 2.44 3.75 1.74 4.66 1.33.15-1.04.56-1.74 1.01-2.14-3.55-.4-7.29-1.78-7.29-7.91 0-1.75.62-3.17 1.65-4.29-.17-.4-.71-2.03.16-4.22 0 0 1.34-.43 4.4 1.64A15.26 15.26 0 0 1 16 7.8c1.36.01 2.72.18 4 .53 3.05-2.07 4.39-1.64 4.39-1.64.87 2.19.33 3.82.16 4.22 1.03 1.12 1.64 2.54 1.64 4.29 0 6.15-3.75 7.5-7.32 7.9.57.5 1.09 1.48 1.09 2.98 0 2.15-.02 3.88-.02 4.41 0 .43.28.94 1.1 0.78C27.42 29.07 32 23.08 32 16c0-8.84-7.16-16-16-16z" fill="#3fb950" />
+    </g>
+  </g>
+  <text class="node-text" x="680" y="168">GitHub Submissions</text>
+  <text class="sub-text" x="680" y="186">Elysium-Submissions Repo</text>
+</svg>
