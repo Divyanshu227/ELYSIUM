@@ -89,6 +89,7 @@ document.addEventListener("click", (e) => {
         const payload = {
             title,
             code,
+            metadata,
             platform: "GFG",
             url: window.location.href,
             timestamp: Date.now()
