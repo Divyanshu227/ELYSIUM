@@ -1,3 +1,10 @@
+// Storing the MutationObserver instance globally.
+
+// Because:-
+// -> User may click submit multiple times.
+// -> Old observer should be removed.
+// ->Prevents duplicate listeners.
+
 let observer = null;
 
 console.log("ELYSIUM extension loaded");
@@ -34,16 +41,28 @@ document.addEventListener("click", (e) => {
         console.log("Accepted!");
 
         // extract code
+        let code = "";
+        const monacoLines = document.querySelectorAll(".view-line");
+        const aceLines = document.querySelectorAll(".ace_line");
 
-const code = [...document.querySelectorAll(".ace_line")]
-    .map(el => el.innerText)
-    .join("\n");
-
-
+        if (monacoLines.length > 0) {
+            code = [...monacoLines]
+                .map(el => el.innerText)
+                .join("\n");
+        } else if (aceLines.length > 0) {
+            code = [...aceLines]
+                .map(el => el.innerText)
+                .join("\n");
+        } else {
+            const textarea = document.querySelector("#code") || document.querySelector("textarea");
+            if (textarea) {
+                code = textarea.value;
+            }
+        }
 
         // extract title
         const title =
-            document.querySelector("h2")
+            document.querySelector(".g-m-0")
             ?.innerText ||
             "Unknown Problem";
 
