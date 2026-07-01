@@ -112,7 +112,7 @@ document.addEventListener("click", (e) => {
             );
 
             const data = await response.json();
-
+            window.alert(`Submitted ${data.title} successfully`)
             console.log(
                 "Sent successfully:",
                 data
