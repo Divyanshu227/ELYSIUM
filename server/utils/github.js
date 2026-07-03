@@ -183,7 +183,12 @@ async function uploadSubmission(title, code, analysis) {
     const topics = Array.isArray(analysis.metadata?.topics) ? analysis.metadata.topics.join(", ") : "N/A";
     const timeComp = analysis.metadata?.time_complexity || "N/A";
     const spaceComp = analysis.metadata?.space_complexity || "N/A";
-    const explanation = analysis.explanation_markdown || "No explanation provided.";
+    const explanation = analysis.explanation_markdown;
+    const explanationMarkdown = explanation && typeof explanation === "object"
+        ? Object.entries(explanation)
+            .map(([label, body]) => `### ${label}\n\n${body || "No explanation provided."}`)
+            .join("\n\n")
+        : (explanation || "No explanation provided.");
 
     const readmeContent = `# ${title || "Problem"}
 
@@ -195,7 +200,7 @@ async function uploadSubmission(title, code, analysis) {
 - **Space Complexity:** ${spaceComp}
 
 ## AI-Generated Explanation
-${explanation}
+${explanationMarkdown}
 `;
 
     // Upload README.md File
