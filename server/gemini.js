@@ -39,7 +39,7 @@ Return ONLY valid JSON.
 Format:
 
 {
-  "cleaned_code": "...",
+  "cleaned_code": {"Brute-Force": "...", "Optimized": "..."},
 
   "metadata": {
     "title": "...",
@@ -49,7 +49,7 @@ Format:
     "space_complexity": "..."
   },
 
-  "explanation_markdown": "..."
+  "explanation_markdown": {"Brute-Force": "...", "Optimized": "..."}
 }
 
 Rules:
