@@ -46,6 +46,12 @@
 ```txt
 ELYSIUM/
 │
+├── frontend/                   # Vite + React frontend
+│   ├── index.html              # Vite entry page
+│   ├── src/                    # React app, routes, and styles
+│   ├── public/assets/          # Copied project media for the UI
+│   └── package.json            # Frontend scripts and dependencies
+│
 ├── elysium-extension/         # Chrome Extension (Manifest V3)
 │   ├── manifest.json          # Extension config & permissions
 │   └── content.js             # Observers click actions, extracts code, posts to server
@@ -99,13 +105,31 @@ Make sure you have [Node.js](https://nodejs.org/) (version 18+) installed.
    npm run dev
    ```
 
-### 3. Install the Chrome Extension
+### 3. Run the Vite Frontend
+1. Open a new terminal and navigate to the `frontend/` directory:
+   ```bash
+   cd frontend
+   ```
+2. Install the frontend dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+4. For a production-style build that the Express server can serve from `frontend/dist/`, run:
+   ```bash
+   npm run build
+   ```
+
+### 4. Install the Chrome Extension
 1. Open Google Chrome and go to `chrome://extensions/`.
 2. Toggle on **Developer mode** in the top-right corner.
 3. Click on the **Load unpacked** button in the top-left.
 4. Select the `elysium-extension` folder in your ELYSIUM project directory.
 
-### 4. Authenticate with GitHub
+### 5. Authenticate with GitHub
 1. Open your browser and navigate to:
    ```txt
    http://localhost:3000/auth/github

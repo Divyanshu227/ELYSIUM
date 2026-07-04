@@ -7,13 +7,33 @@ const { uploadSubmission } = require("./utils/github");
 const app = express();
 const authRoutes = require("./routes/auth");
 const uploadRoutes = require("./routes/upload");
+const clientDist = path.join(__dirname, "..", "frontend", "dist");
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use("/auth", authRoutes);
 app.use("/upload", uploadRoutes);
+
+if (fs.existsSync(clientDist)) {
+    app.use(express.static(clientDist));
+}
+
 // Health check
+app.get("/health", (req, res) => {
+    res.json({
+        ok: true,
+        service: "ELYSIUM Backend",
+        port: 3000
+    });
+});
+
 app.get("/", (req, res) => {
-    res.send("ELYSIUM Backend Running");
+    if (fs.existsSync(path.join(clientDist, "index.html"))) {
+        return res.sendFile(path.join(clientDist, "index.html"));
+    }
+
+    res.status(200).send(
+        "ELYSIUM backend is running. Build the Vite frontend in /frontend or run the Vite dev server."
+    );
 });
 
 // Receive submission
