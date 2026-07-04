@@ -146,7 +146,7 @@ function AppShell({ children }) {
       <div className="ambient ambient-two" />
 
       <header className="topbar">
-        <a className="brand" href="#/">
+        <a className="brand" href="/">
           <span className="brand-mark">E</span>
           <span>
             <strong>ELYSIUM</strong>
@@ -180,8 +180,8 @@ function AppShell({ children }) {
           <p>Captures accepted solutions, explains them, and syncs them to GitHub.</p>
         </div>
         <div className="footer-links">
-          <a href="#/setup">Setup</a>
-          <a href="#/api">API</a>
+          <a href="/setup">Setup</a>
+          <a href="/api">API</a>
           <a href="/health">Health</a>
         </div>
       </footer>
@@ -231,10 +231,10 @@ function HomePage() {
           summary="ELYSIUM captures solved GeeksforGeeks submissions, analyzes the logic with Gemini, and syncs code plus explanation straight to your GitHub repo."
           actions={
             <>
-              <a className="button button-primary" href="#/dashboard">
+              <a className="button button-primary" href="/dashboard">
                 Open dashboard
               </a>
-              <a className="button button-secondary" href="#/setup">
+              <a className="button button-secondary" href="/setup">
                 Follow setup
               </a>
             </>
@@ -359,10 +359,10 @@ function WorkflowPage() {
           summary="The system is designed to watch for acceptance, analyze the solution, and archive the result with minimal friction."
           actions={
             <>
-              <a className="button button-primary" href="#/setup">
+              <a className="button button-primary" href="/setup">
                 Set up the stack
               </a>
-              <a className="button button-secondary" href="#/analysis">
+              <a className="button button-secondary" href="/analysis">
                 Inspect analysis
               </a>
             </>
@@ -423,7 +423,7 @@ function SetupPage() {
               <a className="button button-primary" href="/auth/github" target="_blank" rel="noreferrer">
                 Open OAuth
               </a>
-              <a className="button button-secondary" href="#/api">
+              <a className="button button-secondary" href="/api">
                 Read the API
               </a>
             </>
@@ -473,7 +473,7 @@ function ApiPage() {
               <a className="button button-primary" href="/health">
                 Check health
               </a>
-              <a className="button button-secondary" href="#/dashboard">
+              <a className="button button-secondary" href="/dashboard">
                 Open dashboard
               </a>
             </>
@@ -531,10 +531,10 @@ function AnalysisPage() {
           summary="The server asks Gemini for valid JSON so the output can be stored, rendered, and committed without brittle parsing."
           actions={
             <>
-              <a className="button button-primary" href="#/workflow">
+              <a className="button button-primary" href="/workflow">
                 View workflow
               </a>
-              <a className="button button-secondary" href="#/api">
+              <a className="button button-secondary" href="/api">
                 View endpoints
               </a>
             </>
@@ -587,7 +587,7 @@ function NotFoundPage() {
           <p className="eyebrow">404</p>
           <h1>This route does not exist.</h1>
           <p className="lede">Use the navigation to get back to the dashboard, setup guide, or API reference.</p>
-          <a className="button button-primary" href="#/">
+          <a className="button button-primary" href="/">
             Go home
           </a>
         </section>

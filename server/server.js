@@ -8,6 +8,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const uploadRoutes = require("./routes/upload");
 const clientDist = path.join(__dirname, "..", "frontend", "dist");
+const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use("/auth", authRoutes);
@@ -22,7 +23,7 @@ app.get("/health", (req, res) => {
     res.json({
         ok: true,
         service: "ELYSIUM Backend",
-        port: 3000
+        port: PORT
     });
 });
 
@@ -34,6 +35,19 @@ app.get("/", (req, res) => {
     res.status(200).send(
         "ELYSIUM backend is running. Build the Vite frontend in /frontend or run the Vite dev server."
     );
+});
+
+app.get(/.*/, (req, res, next) => {
+    if (!req.accepts("html")) {
+        return next();
+    }
+
+    const indexFile = path.join(clientDist, "index.html");
+    if (fs.existsSync(indexFile)) {
+        return res.sendFile(indexFile);
+    }
+
+    return next();
 });
 
 // Receive submission
@@ -121,8 +135,6 @@ app.post("/submission", async (req, res) => {
         });
     }
 });
-
-const PORT = 3000;
 
 app.listen(PORT, () => {
     console.log(
